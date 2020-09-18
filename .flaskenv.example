@@ -1,7 +1,7 @@
 FLASK_APP=main.py
 FLASK_ENV=development
 
-DB_HOST=localhost
+DB_HOST=database
 DB_DATABASE=flask
 DB_USERNAME=flask
 DB_PASSWORD=flask

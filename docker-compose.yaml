@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  app:
+    build:
+      context: .
+    image: flask/app
+    user: 1000:1000
+    ports:
+      - 80:5000
+    volumes:
+      - ./:/flask
+    networks:
+      - my-network
+  database:
+    image: mariadb:10.5
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=flask
+      - MYSQL_DATABASE=flask
+      - MYSQL_USER=flask
+      - MYSQL_PASSWORD=flask
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - my-network
+
+volumes:
+  dbdata:
+    driver: local
+
+networks:
+  my-network:
+    driver: bridge
