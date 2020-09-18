@@ -9,12 +9,30 @@ def index():
     except Exception as e:
         print(e)
 
+def show(id):
+    try:
+        users = User.query.filter_by(id=id).first()
+
+        if not users:
+            return response.badRequest([], 'Empty...')
+
+        data = singleTransform(users)
+
+        return response.ok(data, "")
+    except Exception as e:
+        print(e)
+
 def transform(users):
     array = []
-    for i in users:
-        array.append({
-            'id': i.id,
-            'name': i.name,
-            'email': i.email
-        })
+    for user in users:
+        array.append(singleTransform(user))
     return array
+
+def singleTransform(user):
+    data = {
+        'id': user.id,
+        'name': user.name,
+        'email': user.email
+    }
+
+    return data
