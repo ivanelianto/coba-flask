@@ -14,6 +14,11 @@ def users():
     elif request.method == 'POST':
         return UserController.store()
 
-@app.route('/users/<id>')
-def userDetail(id):
-    return UserController.show(id)
+@app.route('/users/<id>', methods=['PUT', 'GET', 'DELETE'])
+def usersDetail(id):
+    if request.method == 'GET':
+        return UserController.show(id)
+    elif request.method == 'PUT':
+        return UserController.update(id)
+    elif request.method == 'DELETE':
+        return UserController.delete(id)
