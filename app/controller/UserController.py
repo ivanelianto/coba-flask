@@ -39,6 +39,23 @@ def store():
     except Exception as e:
         print(e)
 
+def update(id):
+    try:
+        name = request.json['name']
+        email = request.json['email']
+        password = request.json['password']
+
+        user = User.query.filter_by(id=id).first()
+        user.email = email
+        user.name = name
+        user.setPassword(password)
+
+        db.session.commit()
+
+        return response.ok('', 'Successfully update data!')
+    except Exception as e:
+        print(e)
+
 def transform(users):
     array = []
     for user in users:
