@@ -56,6 +56,19 @@ def update(id):
     except Exception as e:
         print(e)
 
+def delete(id):
+    try:
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            return response.badRequest([], 'Empty....')
+
+        db.session.delete(user)
+        db.session.commit()
+
+        return response.ok('', 'Successfully delete data!')
+    except Exception as e:
+        print(e)
+
 def transform(users):
     array = []
     for user in users:
